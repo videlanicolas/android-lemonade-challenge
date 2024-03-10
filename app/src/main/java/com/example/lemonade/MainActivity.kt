@@ -53,6 +53,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun LemonadeApp(modifier: Modifier = Modifier) {
     var currentStep by remember { mutableIntStateOf(1) }
+    var tapAmount by remember { mutableIntStateOf(0) }
 
     Column(
         verticalArrangement = Arrangement.Top,
@@ -103,6 +104,7 @@ fun LemonadeApp(modifier: Modifier = Modifier) {
                         text = stringResource(R.string.lemon_tree),
                         fontSize = 18.sp
                     )
+                    tapAmount = (2..4).random()
                 }
 
                 2 -> {
@@ -125,7 +127,10 @@ fun LemonadeApp(modifier: Modifier = Modifier) {
                             )
                             .wrapContentSize()
                             .clickable {
-                                currentStep = 3
+                                tapAmount--
+                                if (tapAmount <= 0) {
+                                    currentStep = 3
+                                }
                             }
                     )
                     Text(
